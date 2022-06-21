@@ -326,7 +326,7 @@ var Network = (function () {
                                 if (keyvalue) {
                                     result[keyvalue] = obj;
                                 } else {
-                                    ns.warn(
+                                    console.warn(
                                         "the mapkey:",
                                         mapkey,
                                         "not exist in object:",
@@ -341,7 +341,7 @@ var Network = (function () {
                                 if (keyvalue) {
                                     result[keyvalue] = obj;
                                 } else {
-                                    ns.warn(
+                                    console.warn(
                                         "the mapkey:",
                                         mapkey,
                                         "not exist in object:",

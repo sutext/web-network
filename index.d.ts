@@ -19,7 +19,7 @@ export interface Upload {
 }
 export interface Request<T = any> {
     readonly path: string;
-    readonly meta?: IMetaClass<T> | T;
+    readonly meta?: IMetaClass<T>;
     readonly data?: any;
     readonly opts?: Options;
 }
@@ -178,37 +178,15 @@ export default abstract class Network {
      * @warn You must throw a new error for custom otherwise you can't get error message
      */
     protected reject(error: Error | HTTPError): void;
-    /** ----- network data request methods. */
+
+    /** @description upload simple file */
     readonly upload: <T = any>(path: string, upload: Upload) => UploadTask<T>;
-    readonly anyreq: <T = any>(req: Request<T>) => DataTask<T>;
+    /** @description request simple object data */
     readonly objreq: <T>(req: Request<T>) => DataTask<T>;
+    /** @description request object array data */
     readonly aryreq: <T>(req: Request<T>) => DataTask<T[]>;
+    /** @description request dictionary data */
     readonly mapreq: <T>(req: Request<T>) => DataTask<Record<keyof any, T>>;
-    readonly anytask: <T = any>(
-        path: string,
-        data?: any,
-        opts?: Options
-    ) => DataTask<T>;
-    readonly objtask: <T>(
-        meta: IMetaClass<T>,
-        path: string,
-        data?: any,
-        opts?: Options
-    ) => DataTask<T>;
-    readonly arytask: <T>(
-        meta: IMetaClass<T>,
-        path: string,
-        data?: any,
-        opts?: Options
-    ) => DataTask<T[]>;
-    /**
-     * @description convert respones data to map
-     * @notice use opts.mapkey to define the key field otherwise use 'id' by default
-     */
-    readonly maptask: <T>(
-        meta: IMetaClass<T>,
-        path: string,
-        data?: any,
-        opts?: Options
-    ) => DataTask<Record<keyof any, T>>;
+    /** @description request any type data */
+    readonly anyreq: <T>(req: Omit<Request<T>, "meta">) => DataTask<T>;
 }
